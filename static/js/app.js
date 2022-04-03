@@ -1,5 +1,5 @@
 // Set the URL to import the data json
-const url = "";
+const url = "https://raw.githubusercontent.com/Vallej0/Plotly/main/samples.json";
 
 
 // Initialize page with Test Subject ID dropdown options and display data for first ID
