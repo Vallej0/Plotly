@@ -7,7 +7,7 @@ The dataset reveals that a small handful of microbial species (also called opera
 # Plotly-Bar Chart
  In the fist task we read our json file, using a D3 library, and produced a barchart with a drop down menu that illustrated the top 10 bacteria found in the navel. 
 
-![image1](Images\HW2.png)
+![image2](Images\HW2.png)
 
 # Plotly Bubble Chart
 We created an bubble chart illustration that gave the following:
@@ -25,7 +25,7 @@ Otu_ids for the marker colors.
 
 
 Otu_labels for the text values.
-![image1](Images\HW4.png)
+![image4](Images\HW4.png)
 
 # Demographic Information
 I wrote some code that displays the demographic information from the data. 
@@ -36,7 +36,7 @@ I wrote some code that displays the demographic information from the data.
 # Guage Chart
 A guage chart was created to show how often an individual should wash their navel per week. 
 
-![image1](Images\HW3.png)
+![image3](Images\HW3.png)
 
 Webpage was uploaded to github.
 
