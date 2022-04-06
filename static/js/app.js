@@ -43,9 +43,6 @@ function buildPlots(ID) {
     d3.json(url).then(function(plotData) {
         //filter samples data to ID for plotting
         var samplePlot = plotData.samples.filter(plotID => plotID.id == ID)[0];
-        //console.log(samplePlot);
-        //slice top 10 of each samples data: otu_ids, otu_labels, and sample_values
-        //map otu_ids to string with OTU label
         var slice_otu_ids = samplePlot.otu_ids.slice(0, 10).map(id => "OTU "+id.toString());
         var slice_otu_labels = samplePlot.otu_labels.slice(0, 10);
         var slice_sample_values = samplePlot.sample_values.slice(0, 10);
@@ -72,7 +69,7 @@ function buildPlots(ID) {
         };
 
         Plotly.newPlot('bar', barData, barLayout);
-        //console.log(barData);
+        
 
         //BUBBLE CHART
         var otu_ids = samplePlot.otu_ids.slice(0, 10);
@@ -88,7 +85,7 @@ function buildPlots(ID) {
               },
             text: slice_otu_labels
         };
-
+    
         var bubbleData = [traceBubble];
 
         var bubbleLayout = {
@@ -99,52 +96,49 @@ function buildPlots(ID) {
 
         Plotly.newPlot('bubble', bubbleData, bubbleLayout);
 
-        //GAUGE CHART
-        //find the wash frequency variable
-        var metadata = plotData.metadata.filter(plotID => plotID.id == ID)[0];
-        var washFreq = metadata.wfreq;
-        console.log(washFreq);
+ //GAUGE CHART
+ //wash freq. variable
+ var metadata = plotData.metadata.filter(plotID => plotID.id == ID)[0];
+ var washFreq = metadata.wfreq;
+ console.log(washFreq);
 
-        var traceGauge = {
-            domain: { x: [0, 1], y: [0, 1] },
-            value: washFreq,
-            title: { text: 'Bellybutton WashFrequency'},
-            type: "indicator",
-            mode: "gauge+number",
-            gauge: {
-                axis: { range: [null, 9] },
-                steps: [
-                    { range: [0, washFreq], color: '#1978B5' }
-                ],
-                    threshold: {
-                    line: { color: "red", width: 4 },
-                    thickness: 0.75,
-                        value: washFreq
-                }
-            }
-        };
+ var traceGauge = {
+     domain: { x: [0, 1], y: [0, 1] },
+     value: washFreq,
+     title: { text: 'Bellybutton WashFrequency'},
+     type: "indicator",
+     mode: "gauge+number+delta",
+     delta:{reference:380},
+     gauge: {
+         axis: { range: [null, 9] },
+         steps: [
+             { range: [0, washFreq], color: '#1978B5' }
+         ],
+             threshold: {
+             line: { color: "red", width: 4 },
+             thickness: 0.75,
+                 value: washFreq
+         }
+     }
+ };
 
-        var gaugeData = [traceGauge];
+ var gaugeData = [traceGauge];
 
-        var gaugeLayout = {
-            width: 500, height: 400, margin: { t: 0, b: 0 }
-        };
+ var gaugeLayout = {
+     width: 500, height: 400, margin: { t: 0, b: 0 }
+ };
 
-        Plotly.newPlot('gauge', gaugeData, gaugeLayout);
-        
-    });
+ Plotly.newPlot('gauge', gaugeData, gaugeLayout);
+ 
+});
 };
 
 //on ID dropwdown change, rebuild plots
 function optionChanged(newID) {
-    //     // Fetch new data each time a new sample is selected
-    buildDemos(newID);
-    buildPlots(newID);
-  };
 
-//d3.select('#selDataset').on('change', {
-  //buildDemos(this.value)
-//})
-
-//run init to start
+buildDemos(newID);
+buildPlots(newID);
+};
 init();
+        
+    
